@@ -9,15 +9,12 @@ import java.util.List;
 
 public class VocabPagerAdapter extends FragmentStateAdapter {
 
-
     private List<Vocab> vocabs;
-
 
     public VocabPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Vocab> vocabs) {
         super(fragmentActivity);
         this.vocabs = vocabs;
     }
-
 
     @NonNull
     @Override
@@ -25,10 +22,8 @@ public class VocabPagerAdapter extends FragmentStateAdapter {
         return new VocabFragment(vocabs.get(position));
     }
 
-
     @Override
     public int getItemCount() {
         return vocabs.size();
     }
 }
-

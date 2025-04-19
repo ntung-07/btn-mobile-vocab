@@ -1,28 +1,32 @@
 package com.example.mobile_vocab_project;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Thiết lập Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Ứng Dụng Từ Vựng");
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         ArrayList<Vocab> listVocab = new ArrayList();
         listVocab.add(new Vocab("Cat", "Mèo", "[kæt]"));
@@ -46,10 +50,20 @@ public class MainActivity extends AppCompatActivity {
         listVocab.add(new Vocab("Ant", "Kiến", "[ænt]"));
         listVocab.add(new Vocab("Bee", "Ong", "[bi]"));
 
-
         // Khởi tạo Adapter và đặt Adapter cho RecyclerView
         MyAdapter adapter = new MyAdapter(this, listVocab);
         recyclerView.setAdapter(adapter);
-    }
 
+        // Thêm sự kiện nhấn nút để vào phần Quiz
+        Button quizButton = findViewById(R.id.quizButton);
+        if (quizButton != null) {
+            quizButton.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                intent.putExtra("vocabList", listVocab);
+                startActivity(intent);
+            });
+        } else {
+            Toast.makeText(this, "Không tìm thấy quizButton", Toast.LENGTH_LONG).show();
+        }
+    }
 }

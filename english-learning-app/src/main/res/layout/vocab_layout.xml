@@ -4,6 +4,18 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="16dp">
+
+    <!-- Từ vựng (term) -->
+    <TextView
+        android:id="@+id/termTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Định nghĩa (def) -->
     <TextView
         android:id="@+id/defTextView"
         android:layout_width="match_parent"
@@ -12,10 +24,14 @@
         android:textColor="#0000FF"
         android:gravity="center"
         android:layout_marginBottom="8dp"/>
+
+    <!-- Phiên âm (IPA) -->
     <TextView
         android:id="@+id/ipaTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="@android:color/black"/>
+
 </LinearLayout>
