@@ -7,6 +7,9 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        plugins {
+            id("com.google.gms.google-services") version "4.4.2"
+        }
         mavenCentral()
         gradlePluginPortal()
     }

@@ -15,16 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     private Context context;
-    private ArrayList<Vocab> data;
+    private List<VocabEntity> data;
 
 
     // Constructor để khởi tạo Adapter với dữ liệu và Context
-    public MyAdapter(Context context, ArrayList<Vocab> data) {
+    public MyAdapter(Context context, List<VocabEntity> data) {
         this.context = context;
         this.data = data;
     }
@@ -52,7 +53,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return data.size();
     }
 
-
+    public void setData(List<VocabEntity> newData) {
+        this.data = newData;
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         public ViewHolder(@NonNull View itemView) {
@@ -61,8 +64,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
+                    VocabEntity selectedVocab = data.get(position);
+                    Vocab vocab = new Vocab(selectedVocab.term, selectedVocab.def, selectedVocab.ipa); // convert
                     Intent intent = new Intent(context, VocabDetailActivity.class);
-                    intent.putExtra("vocab", data.get(position));
+                    intent.putExtra("vocab", vocab);
                     context.startActivity(intent);
                 }
             });
