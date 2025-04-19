@@ -14,17 +14,27 @@ import androidx.fragment.app.Fragment;
 public class VocabFragment extends DialogFragment {
     VocabEntity vocab;
     VocabFragment(VocabEntity vocab){
+
+    Vocab vocab;
+
+    VocabFragment(Vocab vocab) {
         this.vocab = vocab;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.vocab_layout, container, false);
+
+        TextView termTextView = rootView.findViewById(R.id.termTextView);
+        termTextView.setText(vocab.term);
+
         TextView defTextView = rootView.findViewById(R.id.defTextView);
         defTextView.setText(vocab.def);
+
         TextView ipaTextView = rootView.findViewById(R.id.ipaTextView);
         ipaTextView.setText(vocab.ipa);
+
         return rootView;
     }
 }
-

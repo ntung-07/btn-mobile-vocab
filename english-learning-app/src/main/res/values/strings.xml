@@ -91,4 +91,9 @@
     — Đội ngũ phát triển VocabApp ❤️
 </string>
 
+    <string name="app_name">English Learning App</string>
+    <string name="option_1_description">Lựa chọn 1</string>
+    <string name="option_2_description">Lựa chọn 2</string>
+    <string name="option_3_description">Lựa chọn 3</string>
+    <string name="option_4_description">Lựa chọn 4</string>
 </resources>

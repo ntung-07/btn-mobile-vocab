@@ -15,6 +15,7 @@ public class VocabPagerAdapter extends FragmentStateAdapter {
         super(fragmentActivity);
         this.vocabs = vocabs;
     }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {

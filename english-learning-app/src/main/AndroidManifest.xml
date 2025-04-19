@@ -7,7 +7,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+<!--        <activity android:name=".MainActivity"-->
+<!--            android:exported="true">-->
         <!-- Thêm activity GuideActivity -->
         <activity android:name=".vocab.GuideActivity" />
 
@@ -33,6 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".VocabDetailActivity"/>
+        <activity android:name=".QuizActivity"/>
     </application>
 
 </manifest>
