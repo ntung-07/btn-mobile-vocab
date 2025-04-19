@@ -1,5 +1,4 @@
 package com.example.mobile_vocab_project;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,11 +11,11 @@ import java.util.Random;
 public class QuizActivity extends AppCompatActivity {
     private TextView quizQuestion, scoreText;
     private Button option1, option2, option3, option4;
-    private ArrayList<Vocab> vocabList;
-    private ArrayList<Vocab> quizQuestions;
+    private ArrayList<VocabEntity> vocabList;
+    private ArrayList<VocabEntity> quizQuestions;
     private int currentQuestionIndex = 0;
     private int score = 0;
-    private Vocab currentVocab;
+    private VocabEntity currentVocab;
     private Random random = new Random();
 
     @Override
@@ -32,7 +31,7 @@ public class QuizActivity extends AppCompatActivity {
         option4 = findViewById(R.id.option4);
 
         // Lấy danh sách từ vựng từ intent
-        vocabList = (ArrayList<Vocab>) getIntent().getSerializableExtra("vocabList");
+        vocabList = (ArrayList<VocabEntity>) getIntent().getSerializableExtra("vocabList");
         quizQuestions = new ArrayList<>(vocabList);
         Collections.shuffle(quizQuestions); // Xáo trộn câu hỏi
 

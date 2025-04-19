@@ -1,29 +1,37 @@
 package com.example.mobile_vocab_project;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.mobile_vocab_project.R;
+import com.example.mobile_vocab_project.VocabEntity;
+import com.example.mobile_vocab_project.vocab.VocabDetailActivity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Locale;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-
     private Context context;
-    private ArrayList<Vocab> data;
+    private List<VocabEntity> data;
+    private TextToSpeech tts;
 
-    public MyAdapter(Context context, ArrayList<Vocab> data) {
+    public MyAdapter(Context context, List<VocabEntity> data) {
         this.context = context;
         this.data = data;
+
+        tts = new TextToSpeech(context, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                tts.setLanguage(Locale.US);
+            } else {
+                Toast.makeText(context, "TextToSpeech init failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @NonNull
@@ -34,9 +42,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
-        String item = data.get(position).term;
-        holder.textView.setText(item);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        VocabEntity vocab = data.get(position);
+        String displayText = vocab.term + " - " + vocab.def + " " + vocab.ipa;
+        holder.textView.setText(displayText);
+
+        holder.textView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, VocabDetailActivity.class);
+            intent.putExtra("vocabList", new java.util.ArrayList<>(data));
+            intent.putExtra("position", position);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -44,41 +60,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setData(List<VocabEntity> newData) {
+        this.data = newData;
+    }
+
+    public void shutdownTTS() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text_view);
-            textView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        Intent intent = new Intent(context, VocabDetailActivity.class);
-                        intent.putExtra("vocabList", data);
-                        intent.putExtra("position", position);
-                        context.startActivity(intent);
-                    } else {
-                        VocabFragment vocabFragment = new VocabFragment(data.get(position));
-                        FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, vocabFragment);
-                        fragmentTransaction.commit();
-                    }
-                }
-            });
         }
-    }
-}
-
-class Vocab implements Serializable {
-    String term;
-    String def;
-    String ipa;
-
-    public Vocab(String term, String def, String ipa) {
-        this.term = term;
-        this.def = def;
-        this.ipa = ipa;
     }
 }

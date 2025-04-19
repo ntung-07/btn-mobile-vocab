@@ -25,7 +25,9 @@ public class VocabFragment extends DialogFragment {
     private SharedPreferences sharedPreferences;
     private TextView exampleListTextView;
 
-    public VocabFragment() {}
+    public VocabFragment() {
+        // Required empty constructor for DialogFragment
+    }
 
     public static VocabFragment newInstance(VocabEntity vocab) {
         VocabFragment fragment = new VocabFragment();
@@ -56,26 +58,20 @@ public class VocabFragment extends DialogFragment {
 
         if (vocab != null) {
             termTextView.setText(vocab.term);
-            defTextView.setText(getString(R.string.definition_prefix) + " " + vocab.term);
+            defTextView.setText(getString(R.string.definition_prefix) + " " + vocab.def);
             ipaTextView.setText(vocab.ipa);
-            showExamples(); // Hiển thị các ví dụ đã lưu khi vào trang này
+            showExamples();  // Load any saved examples
         }
 
         addExampleButton.setOnClickListener(v -> {
             String newExample = exampleEditText.getText().toString().trim();
             if (!TextUtils.isEmpty(newExample)) {
-                // Nếu có dữ liệu nhập, lưu vào SharedPreferences và thông báo
                 saveExample(newExample);
-                exampleEditText.setText("");  // Xóa nội dung ô nhập
-                showExamples();  // Cập nhật lại danh sách câu ví dụ
-                if (getContext() != null) {
-                    Toast.makeText(getContext(), "Example added!", Toast.LENGTH_SHORT).show();  // Thông báo
-                }
+                exampleEditText.setText("");
+                showExamples();
+                Toast.makeText(getContext(), "Example added!", Toast.LENGTH_SHORT).show();
             } else {
-                // Nếu không có dữ liệu nhập, chỉ hiển thị thông báo
-                if (getContext() != null) {
-                    Toast.makeText(getContext(), "Please enter an example sentence", Toast.LENGTH_SHORT).show();  // Thông báo nếu chưa nhập ví dụ
-                }
+                Toast.makeText(getContext(), "Please enter an example sentence", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,7 +81,6 @@ public class VocabFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Chỉ gọi showExamples khi fragment đã attach context
         if (isAdded()) {
             showExamples();
         }
@@ -97,12 +92,11 @@ public class VocabFragment extends DialogFragment {
             return;
         }
 
-        String key = "examples_" + vocab.def.toLowerCase();  // Dùng định nghĩa của từ làm key
+        String key = "examples_" + vocab.def.toLowerCase();
         Set<String> oldSet = sharedPreferences.getStringSet(key, new HashSet<>());
         Set<String> newSet = new HashSet<>(oldSet);
         newSet.add(sentence);
 
-        // Lưu câu ví dụ vào SharedPreferences và log kiểm tra
         sharedPreferences.edit().putStringSet(key, newSet).apply();
         Log.d("VocabFragment", "Saved new example: " + sentence);
     }
@@ -115,16 +109,15 @@ public class VocabFragment extends DialogFragment {
 
         String key = "examples_" + vocab.def.toLowerCase();
         Set<String> examples = sharedPreferences.getStringSet(key, new HashSet<>());
-        Log.d("Examples", "Current examples: " + examples);
 
-        if (examples.isEmpty()) {
-            exampleListTextView.setText(getString(R.string.no_examples_yet));  // Nếu không có ví dụ nào
+        if (examples == null || examples.isEmpty()) {
+            exampleListTextView.setText(getString(R.string.no_examples_yet));
         } else {
-            StringBuilder builder = new StringBuilder(getString(R.string.saved_examples_label)); // Tiêu đề
+            StringBuilder builder = new StringBuilder(getString(R.string.saved_examples_label));
             for (String sentence : examples) {
                 builder.append("- ").append(sentence).append("\n");
             }
-            exampleListTextView.setText(builder.toString());  // Cập nhật danh sách
+            exampleListTextView.setText(builder.toString());
         }
     }
 

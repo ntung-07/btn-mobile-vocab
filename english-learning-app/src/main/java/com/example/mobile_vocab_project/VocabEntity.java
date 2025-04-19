@@ -1,8 +1,6 @@
 package com.example.mobile_vocab_project;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import java.io.Serializable;
 
 @Entity(tableName = "vocab_table")
