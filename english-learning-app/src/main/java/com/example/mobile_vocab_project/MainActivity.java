@@ -2,11 +2,7 @@ package com.example.mobile_vocab_project;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,17 +10,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        ArrayList<Vocab> listVocab = new ArrayList();
+        ArrayList<Vocab> listVocab = new ArrayList<>();
         listVocab.add(new Vocab("Cat", "Mèo", "[kæt]"));
         listVocab.add(new Vocab("Tiger", "Hổ", "[ˈtaɪɡər]"));
         listVocab.add(new Vocab("Fish", "Cá", "[fɪʃ]"));
@@ -46,10 +42,17 @@ public class MainActivity extends AppCompatActivity {
         listVocab.add(new Vocab("Ant", "Kiến", "[ænt]"));
         listVocab.add(new Vocab("Bee", "Ong", "[bi]"));
 
-
-        // Khởi tạo Adapter và đặt Adapter cho RecyclerView
-        MyAdapter adapter = new MyAdapter(this, listVocab);
+        // Gắn Adapter vào RecyclerView
+        adapter = new MyAdapter(this, listVocab);
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Giải phóng TextToSpeech khi thoát activity
+        if (adapter != null) {
+            adapter.shutdownTTS();
+        }
+    }
 }
