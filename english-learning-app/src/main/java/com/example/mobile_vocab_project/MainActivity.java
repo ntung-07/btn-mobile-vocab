@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,33 @@ public class MainActivity extends AppCompatActivity {
 
         VocabDatabase db = VocabDatabase.getInstance(this);
         VocabDao dao = db.vocabDao();
+        ArrayList<Vocab> listVocab = new ArrayList<>();
+        listVocab.add(new Vocab("Cat", "Mèo", "[kæt]"));
+        listVocab.add(new Vocab("Tiger", "Hổ", "[ˈtaɪɡər]"));
+        listVocab.add(new Vocab("Fish", "Cá", "[fɪʃ]"));
+        listVocab.add(new Vocab("Bird", "Chim", "[bɜrd]"));
+        listVocab.add(new Vocab("Elephant", "Voi", "[ˈɛlɪfənt]"));
+        listVocab.add(new Vocab("Snake", "Rắn", "[sneɪk]"));
+        listVocab.add(new Vocab("Monkey", "Khỉ", "[ˈmʌŋki]"));
+        listVocab.add(new Vocab("Bear", "Gấu", "[bɛr]"));
+        listVocab.add(new Vocab("Cow", "Bò", "[kaʊ]"));
+        listVocab.add(new Vocab("Horse", "Ngựa", "[hɔrs]"));
+        listVocab.add(new Vocab("Duck", "Vịt", "[dʌk]"));
+        listVocab.add(new Vocab("Chicken", "Gà", "[ˈtʃɪkɪn]"));
+        listVocab.add(new Vocab("Sheep", "Cừu", "[ʃiːp]"));
+        listVocab.add(new Vocab("Goat", "Dê", "[ɡoʊt]"));
+        listVocab.add(new Vocab("Wolf", "Sói", "[wʊlf]"));
+        listVocab.add(new Vocab("Fox", "Cáo", "[fɑks]"));
+        listVocab.add(new Vocab("Rabbit", "Thỏ", "[ˈræbɪt]"));
+        listVocab.add(new Vocab("Frog", "Ếch", "[frɔɡ]"));
+        listVocab.add(new Vocab("Ant", "Kiến", "[ænt]"));
+        listVocab.add(new Vocab("Bee", "Ong", "[bi]"));
 
         // Load from database
         List<VocabEntity> listVocab = dao.getAll();
         MyAdapter adapter = new MyAdapter(this, listVocab);  // you’ll update MyAdapter next
+        // Gắn Adapter vào RecyclerView
+        adapter = new MyAdapter(this, listVocab);
         recyclerView.setAdapter(adapter);
 
         SyncUtils.syncRoomWithFireStore(this);
@@ -97,4 +121,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Giải phóng TextToSpeech khi thoát activity
+        if (adapter != null) {
+            adapter.shutdownTTS();
+        }
+    }
 }
