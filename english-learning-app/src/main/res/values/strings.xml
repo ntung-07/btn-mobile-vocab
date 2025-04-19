@@ -1,3 +1,94 @@
 <resources>
-    <string name="app_name">Mobile_Vocab_Project</string>
+    <string name="app_name">Từ vựng</string>
+
+    <string name="vocab_cat">Mèo</string>
+    <string name="vocab_tiger">Hổ</string>
+    <string name="vocab_fish">Cá</string>
+    <string name="vocab_bird">Chim</string>
+    <string name="vocab_elephant">Voi</string>
+    <string name="vocab_snake">Rắn</string>
+    <string name="vocab_monkey">Khỉ</string>
+    <string name="vocab_bear">Gấu</string>
+    <string name="vocab_cow">Bò</string>
+    <string name="vocab_horse">Ngựa</string>
+    <string name="vocab_duck">Vịt</string>
+    <string name="vocab_chicken">Gà</string>
+    <string name="vocab_sheep">Cừu</string>
+    <string name="vocab_goat">Dê</string>
+    <string name="vocab_wolf">Sói</string>
+    <string name="vocab_fox">Cáo</string>
+    <string name="vocab_rabbit">Thỏ</string>
+    <string name="vocab_frog">Ếch</string>
+    <string name="vocab_ant">Kiến</string>
+    <string name="vocab_bee">Ong</string>
+    <string name="topic_animals">Động vật</string>
+    <string name="topic_food">Thức ăn</string>
+    <string name="topic_school">Trường học</string>
+    <string name="topic_family">Gia đình</string>
+    <string name="topic_colors">Màu sắc</string>
+    <string name="topic_weather">Thời tiết</string>
+    <string name="topic_transportation">Giao thông</string>
+    <string name="topic_household">Đồ dùng trong nhà</string>
+    <string name="btn_topic_practice">Luyện theo chủ đề</string>
+    <string name="hint_example">Nhập câu ví dụ...</string>
+    <string name="btn_add_example">Thêm câu</string>
+    <string name="saved_examples_label">📌 Câu ví dụ đã lưu:</string>
+    <string name="no_examples_yet">Chưa có ví dụ nào</string>
+    <string name="definition_prefix">→ từ tiếng Anh:</string>
+
+
+
+    <string name="guide_button">Hướng dẫn sử dụng</string>
+    <string name="guide_text">
+    🎉 Chào mừng bạn đến với ứng dụng học từ vựng tiếng Anh - VocabApp! 🎉\n\n
+
+    Ứng dụng này được thiết kế đặc biệt dành cho người học ở mọi trình độ – từ người mới bắt đầu cho đến người học nâng cao. Với giao diện thân thiện, dữ liệu phong phú và chức năng linh hoạt, bạn sẽ có một công cụ tuyệt vời để phát triển vốn từ vựng của mình mỗi ngày.\n\n
+
+    📌 1. Giao diện chính:\n
+    - Tại màn hình chính, bạn sẽ thấy một danh sách từ vựng hiển thị theo dạng cuộn dọc.\n
+    - Mỗi dòng bao gồm từ tiếng Anh, nghĩa tiếng Việt và phiên âm quốc tế (IPA) để hỗ trợ phát âm chính xác.\n
+    - Giao diện đơn giản, dễ nhìn, tối ưu cho mọi kích thước màn hình.\n\n
+
+    📌 2. Cách sử dụng danh sách:\n
+    - Vuốt lên/xuống để xem các từ khác trong danh sách.\n
+    - Bạn có thể nhấn vào một từ bất kỳ để mở chi tiết từ đó.\n
+    - Danh sách từ được sắp xếp để hỗ trợ việc ghi nhớ theo nhóm chủ đề.\n\n
+
+    📌 3. Chế độ xem chi tiết:\n
+    - Sau khi nhấn vào một từ, màn hình chi tiết sẽ hiển thị từ đó với định nghĩa, phiên âm, và cách trình bày nổi bật.\n
+    - Trượt sang trái hoặc phải để chuyển giữa các từ nhanh chóng mà không cần quay lại danh sách chính.\n
+    - Thiết kế dạng slide giúp bạn học từ liên tục như xem flashcard.\n\n
+
+    📌 4. Hỗ trợ đa ngôn ngữ:\n
+    - VocabApp hỗ trợ tiếng Việt, tiếng Anh, và tiếng Pháp.\n
+    - Ứng dụng sẽ tự động hiển thị ngôn ngữ phù hợp với cài đặt ngôn ngữ của thiết bị.\n
+    - Mọi văn bản, nút bấm và dữ liệu sẽ được dịch tương ứng.\n\n
+
+    📌 5. Khả năng thích ứng (Responsive UI):\n
+    - Giao diện được tối ưu cho điện thoại nhỏ, điện thoại lớn, và cả máy tính bảng.\n
+    - Bố cục linh hoạt giúp bạn sử dụng ứng dụng dễ dàng cả ở chế độ dọc và ngang.\n\n
+
+    📌 6. Tính năng nổi bật:\n
+    ✅ Dễ sử dụng, không cần tài khoản\n
+    ✅ Không cần kết nối internet\n
+    ✅ Hỗ trợ học từ mọi lúc mọi nơi\n
+    ✅ Phù hợp cho học sinh, sinh viên, người đi làm\n
+    ✅ Giao diện thân thiện, không quảng cáo gây phiền\n\n
+
+    📌 7. Hướng dẫn nhanh:\n
+    - Mở ứng dụng và chọn từ cần học\n
+    - Nhấn vào từ để xem chi tiết\n
+    - Trượt để học liên tiếp\n
+    - Đổi ngôn ngữ bằng cách thay đổi cài đặt hệ thống\n
+    - Nhấn nút "Hướng dẫn sử dụng" để xem lại hướng dẫn này\n\n
+
+    💡 Mẹo học từ vựng hiệu quả:\n
+    - Học ít mỗi ngày, nhưng đều đặn\n
+    - Lặp lại từ cũ để không quên\n
+    - Kết hợp với luyện nghe, nói để ghi nhớ lâu hơn\n\n
+
+    🙏 Cảm ơn bạn đã sử dụng VocabApp. Chúng tôi luôn mong muốn mang lại trải nghiệm học tập tốt nhất. Chúc bạn học vui và đạt kết quả cao trong hành trình chinh phục tiếng Anh!\n\n
+    — Đội ngũ phát triển VocabApp ❤️
+</string>
+
 </resources>

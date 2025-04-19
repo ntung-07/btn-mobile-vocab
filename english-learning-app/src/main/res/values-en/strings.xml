@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">Vocabulary</string>
+
+    <string name="vocab_cat">Cat</string>
+    <string name="vocab_tiger">Tiger</string>
+    <string name="vocab_fish">Fish</string>
+    <string name="vocab_bird">Bird</string>
+    <string name="vocab_elephant">Elephant</string>
+    <string name="vocab_snake">Snake</string>
+    <string name="vocab_monkey">Monkey</string>
+    <string name="vocab_bear">Bear</string>
+    <string name="vocab_cow">Cow</string>
+    <string name="vocab_horse">Horse</string>
+    <string name="vocab_duck">Duck</string>
+    <string name="vocab_chicken">Chicken</string>
+    <string name="vocab_sheep">Sheep</string>
+    <string name="vocab_goat">Goat</string>
+    <string name="vocab_wolf">Wolf</string>
+    <string name="vocab_fox">Fox</string>
+    <string name="vocab_rabbit">Rabbit</string>
+    <string name="vocab_frog">Frog</string>
+    <string name="vocab_ant">Ant</string>
+    <string name="vocab_bee">Bee</string>
+    <string name="topic_animals">Animals</string>
+    <string name="topic_food">Food</string>
+    <string name="topic_school">School</string>
+    <string name="topic_family">Family</string>
+    <string name="topic_colors">Colors</string>
+    <string name="topic_weather">Weather</string>
+    <string name="topic_transportation">Transportation</string>
+    <string name="topic_household">Household Items</string>
+    <string name="btn_topic_practice">Practice by topic</string>
+    <string name="hint_example">Enter an example sentence...</string>
+    <string name="btn_add_example">Add Example</string>
+    <string name="saved_examples_label">📌 Saved example sentences:</string>
+    <string name="no_examples_yet">No examples yet</string>
+    <string name="definition_prefix">→ English word:</string>
+
+    <string name="guide_button">User Guide</string>
+
+    <string name="guide_text"><![CDATA[
+🎉 Welcome to VocabApp – your English vocabulary learning companion! 🎉
+
+This app is designed for learners of all levels – from absolute beginners to advanced users. With a friendly interface, rich vocabulary database, and flexible features, you&apos;ll have a powerful tool to build your vocabulary every day.\n\n
+
+📌 1. Main Interface:\n
+- On the home screen, you&apos;ll see a scrollable list of vocabulary words.\n
+- Each item includes the English word, Vietnamese meaning, and IPA pronunciation.\n
+- Clean, simple UI optimized for all screen sizes.\n\n
+
+📌 2. Using the List:\n
+- Scroll up/down to browse the vocabulary list.\n
+- Tap any word to view more details.\n
+- Words are grouped by themes to aid memory retention.\n\n
+
+📌 3. Detail View:\n
+- Tapping a word opens a detailed view with pronunciation and meaning.\n
+- Swipe left or right to navigate between words.\n
+- Slide format helps continuous learning like flashcards.\n\n
+
+📌 4. Multilingual Support:\n
+- VocabApp supports Vietnamese, English, and French.\n
+- The app automatically adapts to your device&apos;s language settings.\n
+- All text, buttons, and data are fully translated.\n\n
+
+📌 5. Responsive Design:\n
+- Interface adapts perfectly to phones, tablets, and various screen sizes.\n
+- Works smoothly in both portrait and landscape orientations.\n\n
+
+📌 6. Highlights:\n
+✅ Easy to use, no account needed\n
+✅ Offline access\n
+✅ Learn anytime, anywhere\n
+✅ Great for students, workers, and language lovers\n
+✅ Clean, ad-free experience\n\n
+
+📌 7. Quick Start Guide:\n
+- Open the app and choose a word\n
+- Tap to view details\n
+- Swipe to continue learning\n
+- Change language via system settings\n
+- Press &quot;User Guide&quot; to view this guide anytime\n\n
+
+💡 Vocabulary Tips:\n
+- Learn a few words daily, consistently\n
+- Review old words regularly\n
+- Combine with listening/speaking practice\n\n
+
+🙏 Thank you for using VocabApp! We hope you enjoy a fun and effective learning experience. Good luck on your English journey!\n\n
+— VocabApp Team ❤️
+    ]]></string>
+</resources>

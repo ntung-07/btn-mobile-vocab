@@ -1,4 +1,4 @@
-package com.example.mobile_vocab_project;
+package com.example.vocab;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,7 +20,8 @@ public class VocabPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return new VocabFragment(vocabs.get(position));
+        return VocabFragment.newInstance(vocabs.get(position));
+
     }
 
 
@@ -29,4 +30,3 @@ public class VocabPagerAdapter extends FragmentStateAdapter {
         return vocabs.size();
     }
 }
-

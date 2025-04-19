@@ -2,6 +2,7 @@ package com.example.mobile_vocab_project;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-
 
     private Context context;
     private List<VocabEntity> data;
@@ -158,6 +158,22 @@ class Vocab implements Serializable {
         this.term = term;
         this.def = def;
         this.ipa = ipa;
+
+            textView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        Intent intent = new Intent(context, VocabDetailActivity.class);
+                        intent.putExtra("vocabList", data);
+                        intent.putExtra("position", position);
+                        context.startActivity(intent);
+                    } else {
+                        VocabFragment vocabFragment = VocabFragment.newInstance(data.get(position));
+                        vocabFragment.show(((MainActivity) context).getSupportFragmentManager(), "vocab_dialog");
+                    }
+                }
+            });
+        }
     }
 }
 
