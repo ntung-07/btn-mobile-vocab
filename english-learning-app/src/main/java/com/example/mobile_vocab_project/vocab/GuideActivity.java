@@ -1,8 +1,8 @@
-package com.example.vocab;
-
+package com.example.mobile_vocab_project.vocab;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.mobile_vocab_project.R;
 
 public class GuideActivity extends AppCompatActivity {
 

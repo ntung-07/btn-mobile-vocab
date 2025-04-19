@@ -1,5 +1,4 @@
-package com.example.vocab;
-
+package com.example.mobile_vocab_project.vocab;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,23 +11,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
+import com.example.mobile_vocab_project.R;
+import com.example.mobile_vocab_project.VocabEntity;
 import java.util.HashSet;
 import java.util.Set;
 
 public class VocabFragment extends DialogFragment {
 
-    private Vocab vocab;
+    private VocabEntity vocab;
     private SharedPreferences sharedPreferences;
     private TextView exampleListTextView;
 
     public VocabFragment() {}
 
-    public static VocabFragment newInstance(Vocab vocab) {
+    public static VocabFragment newInstance(VocabEntity vocab) {
         VocabFragment fragment = new VocabFragment();
         Bundle args = new Bundle();
         args.putSerializable("vocab", vocab);
@@ -43,7 +42,7 @@ public class VocabFragment extends DialogFragment {
         View rootView = inflater.inflate(R.layout.vocab_layout, container, false);
 
         if (getArguments() != null) {
-            vocab = (Vocab) getArguments().getSerializable("vocab");
+            vocab = (VocabEntity) getArguments().getSerializable("vocab");
         }
 
         TextView termTextView = rootView.findViewById(R.id.termTextView);

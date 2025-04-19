@@ -1,5 +1,4 @@
-package com.example.vocab;
-
+package com.example.mobile_vocab_project.vocab;
 import java.io.Serializable;
 
 public class Vocab implements Serializable {

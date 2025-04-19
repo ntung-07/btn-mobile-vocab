@@ -1,8 +1,11 @@
 package com.example.mobile_vocab_project;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -13,6 +16,9 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import com.example.mobile_vocab_project.vocab.GuideActivity;
+import com.example.mobile_vocab_project.vocab.MyAdapter;
+import com.example.mobile_vocab_project.vocab.TopicListActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +26,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.mobile_vocab_project.R;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyAdapter adapter;
+    private Button guideButton, topicButton, toggleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +47,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Khởi tạo RecyclerView và các nút
+        guideButton = findViewById(R.id.btnGuide);
+        topicButton = findViewById(R.id.btnTopic);
+        toggleButton = findViewById(R.id.btnToggleTheme);
+
+        // Thiết lập LayoutManager cho RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Mở hướng dẫn sử dụng
+        guideButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, GuideActivity.class);
+            startActivity(intent);
+        });
+
+        // Mở luyện theo chủ đề
+        topicButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TopicListActivity.class);
+            startActivity(intent);
+        });
+
+        // Cài đặt sự kiện cho nút Toggle Theme
+        toggleButton.setOnClickListener(v -> {
+            toggleTheme();  // Gọi phương thức để chuyển đổi giữa chế độ sáng và tối
+        });
 
         VocabDatabase db = VocabDatabase.getInstance(this);
         VocabDao dao = db.vocabDao();
@@ -97,6 +138,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).start();
         });
+    }
+
+    // Hàm để chuyển đổi giữa chế độ sáng và tối
+    private void toggleTheme() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        // Nếu đang ở chế độ tối, chuyển sang chế độ sáng
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            setAppTheme(AppCompatDelegate.MODE_NIGHT_NO);  // Chuyển sang chế độ sáng
+        } else {
+            // Nếu đang ở chế độ sáng, chuyển sang chế độ tối
+            setAppTheme(AppCompatDelegate.MODE_NIGHT_YES);  // Chuyển sang chế độ tối
+        }
+    }
+
+    // Hàm giúp đổi chế độ sáng/tối
+    private void setAppTheme(int mode) {
+        AppCompatDelegate.setDefaultNightMode(mode);
     }
 
     @Override

@@ -1,15 +1,15 @@
-package com.example.vocab;
-
+package com.example.mobile_vocab_project.vocab;
 import android.os.Bundle;
 import android.view.View;  // Đảm bảo đã import View
 import android.widget.TextView;
 import android.widget.Button;  // Đảm bảo đã import Button
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.mobile_vocab_project.R;
+import com.example.mobile_vocab_project.VocabEntity;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TopicDetailActivity extends AppCompatActivity {
 
@@ -39,8 +39,14 @@ public class TopicDetailActivity extends AppCompatActivity {
             topicTitle.setText("Chủ đề: " + topic.name);  // Hiển thị tên chủ đề trong TextView
 
             // Thiết lập RecyclerView để hiển thị danh sách từ vựng
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));  // Sử dụng LinearLayoutManager cho RecyclerView
-            recyclerView.setAdapter(new MyAdapter(this, new ArrayList<>(topic.vocabList)));  // Áp dụng adapter
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            // Convert Vocab to VocabEntity
+            List<VocabEntity> convertedList = new ArrayList<>();
+            for (VocabEntity v : topic.vocabList) {
+                convertedList.add(new VocabEntity(v.term, v.def, v.ipa));  // Make sure VocabEntity has this constructor
+            }
+            recyclerView.setAdapter(new MyAdapter(this, convertedList));
+
         }
     }
 }

@@ -9,17 +9,17 @@
         android:theme="@style/AppTheme">
 
         <!-- Thêm activity GuideActivity -->
-        <activity android:name=".GuideActivity" />
+        <activity android:name=".vocab.GuideActivity" />
 
         <!-- Thêm activity TopicListActivity -->
-        <activity android:name=".TopicListActivity"/>
+        <activity android:name=".vocab.TopicListActivity"/>
 
         <!-- Thêm activity TopicDetailActivity -->
-        <activity android:name=".TopicDetailActivity"/>
+        <activity android:name=".vocab.TopicDetailActivity"/>
 
         <!-- Thêm cấu hình cho VocabDetailActivity -->
         <activity
-            android:name=".VocabDetailActivity"
+            android:name=".vocab.VocabDetailActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
 

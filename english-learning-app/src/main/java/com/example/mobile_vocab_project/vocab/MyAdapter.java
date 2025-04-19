@@ -1,4 +1,4 @@
-package com.example.mobile_vocab_project;
+package com.example.mobile_vocab_project.vocab;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
@@ -14,13 +14,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.mobile_vocab_project.R;
+import com.example.mobile_vocab_project.VocabEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-
     private Context context;
     private List<VocabEntity> data;
     private TextToSpeech tts;
@@ -94,6 +95,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             if (currentPosition != RecyclerView.NO_POSITION) {
                 Intent intent = new Intent(context, VocabDetailActivity.class);
                 intent.putExtra("vocab", vocab);
+                intent.putExtra("vocabList", new ArrayList<>(data)); // 🟢 this is the missing part
+                intent.putExtra("position", currentPosition);
                 context.startActivity(intent);
             }
         });
@@ -146,35 +149,3 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 }
-
-// Lớp Vocab
-class Vocab implements Serializable {
-    String term;
-    String def;
-    String ipa;
-
-
-    public Vocab(String term, String def, String ipa) {
-        this.term = term;
-        this.def = def;
-        this.ipa = ipa;
-
-            textView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                        Intent intent = new Intent(context, VocabDetailActivity.class);
-                        intent.putExtra("vocabList", data);
-                        intent.putExtra("position", position);
-                        context.startActivity(intent);
-                    } else {
-                        VocabFragment vocabFragment = VocabFragment.newInstance(data.get(position));
-                        vocabFragment.show(((MainActivity) context).getSupportFragmentManager(), "vocab_dialog");
-                    }
-                }
-            });
-        }
-    }
-}
-
-
