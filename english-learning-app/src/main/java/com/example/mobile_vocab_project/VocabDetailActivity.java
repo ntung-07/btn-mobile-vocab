@@ -20,7 +20,7 @@ public class VocabDetailActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        Vocab vocab = (Vocab) intent.getSerializableExtra("vocab");
+        VocabEntity vocab = (VocabEntity) getIntent().getSerializableExtra("vocab");
 
 
         VocabFragment vocabFragment = new VocabFragment(vocab);

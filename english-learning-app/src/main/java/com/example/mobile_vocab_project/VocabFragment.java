@@ -12,14 +12,10 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 public class VocabFragment extends DialogFragment {
-
-
-    Vocab vocab;
-    VocabFragment(Vocab vocab){
+    VocabEntity vocab;
+    VocabFragment(VocabEntity vocab){
         this.vocab = vocab;
     }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

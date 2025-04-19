@@ -10,15 +10,13 @@ import java.util.List;
 public class VocabPagerAdapter extends FragmentStateAdapter {
 
 
-    private List<Vocab> vocabs;
+    private List<VocabEntity> vocabs;
 
 
-    public VocabPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Vocab> vocabs) {
+    public VocabPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<VocabEntity> vocabs) {
         super(fragmentActivity);
         this.vocabs = vocabs;
     }
-
-
     @NonNull
     @Override
     public Fragment createFragment(int position) {

@@ -1,5 +1,4 @@
 package com.example.mobile_vocab_project;
-
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
@@ -9,13 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private Context context;
     private List<VocabEntity> data;
-    private ArrayList<Vocab> data;
     private TextToSpeech tts;
-
-    public MyAdapter(Context context, ArrayList<Vocab> data) {
 
     // Constructor để khởi tạo Adapter với dữ liệu và Context
     public MyAdapter(Context context, List<VocabEntity> data) {
@@ -46,7 +40,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         });
     }
 
-
     // Tạo ViewHolder cho mỗi mục trong danh sách
     @NonNull
     @Override
@@ -55,10 +48,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
-        Vocab vocab = data.get(position);
+        VocabEntity vocab = data.get(position);
         String displayText = vocab.term + " - " + vocab.def + " " + vocab.ipa;
         holder.textView.setText(displayText);
 
@@ -101,7 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             int currentPosition = holder.getAdapterPosition();
             if (currentPosition != RecyclerView.NO_POSITION) {
                 Intent intent = new Intent(context, VocabDetailActivity.class);
-                intent.putExtra("vocab", data.get(currentPosition));
+                intent.putExtra("vocab", vocab);
                 context.startActivity(intent);
             }
         });
@@ -141,16 +133,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 Toast.makeText(context, appName + " chưa được cài đặt", Toast.LENGTH_SHORT).show();
                 return;
             }
-            textView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    VocabEntity selectedVocab = data.get(position);
-                    Vocab vocab = new Vocab(selectedVocab.term, selectedVocab.def, selectedVocab.ipa); // convert
-                    Intent intent = new Intent(context, VocabDetailActivity.class);
-                    intent.putExtra("vocab", vocab);
-                    context.startActivity(intent);
-                }
-            });
         }
 
         context.startActivity(Intent.createChooser(sendIntent, "Chia sẻ từ vựng"));
