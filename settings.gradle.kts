@@ -1,23 +1,19 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
         google()
+        gradlePluginPortal()
         mavenCentral()
     }
 }
 
-rootProject.name = "Mobile_Vocab_Project"
-include(":english-learning-app")
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+}
+
+
+rootProject.name = "btn-mobile-vocab-checkpoint03"
+include(":app")
