@@ -1,0 +1,9 @@
+<resources>
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorOnPrimary">#000000</color>  <!-- Màu chữ cho chế độ tối -->
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="background">#121212</color>
+    <color name="onBackground">#FFFFFF</color>  <!-- Màu chữ nền tối -->
+</resources>

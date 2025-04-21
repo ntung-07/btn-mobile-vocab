@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp">
+
+    <!-- Từ vựng -->
+    <TextView
+        android:id="@+id/termTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Term"
+        android:textSize="32sp"
+        android:textColor="?android:textColorPrimary"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nghĩa tiếng Việt -->
+    <TextView
+        android:id="@+id/defTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="?android:textColorPrimary"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/termTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- IPA -->
+    <TextView
+        android:id="@+id/ipaTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="?android:textColorSecondary"
+        android:gravity="center"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/defTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nhập câu ví dụ -->
+    <EditText
+        android:id="@+id/exampleEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nhập câu ví dụ..."
+        android:inputType="textMultiLine"
+        android:maxLines="4"
+        android:imeOptions="actionDone"
+        android:textColor="?android:textColorPrimary"
+        android:textColorHint="?android:textColorHint"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/ipaTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nút thêm câu -->
+    <Button
+        android:id="@+id/addExampleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm câu"
+        android:textColor="@android:color/white"
+        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/exampleEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Hiển thị danh sách ví dụ -->
+    <TextView
+        android:id="@+id/exampleListTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Danh sách ví dụ"
+        android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/addExampleButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <Button
+        android:id="@+id/reloadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tải lại"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/exampleListTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
