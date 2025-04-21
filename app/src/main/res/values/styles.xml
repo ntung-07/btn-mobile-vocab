@@ -1,0 +1,15 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Màu chính cho Toolbar và các thành phần giao diện -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Màu cho thanh trạng thái (status bar) -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Màu cho các thành phần nhấn mạnh (như nút, checkbox) -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Màu nền của ứng dụng -->
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <!-- Màu chữ mặc định -->
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+    </style>
+</resources>

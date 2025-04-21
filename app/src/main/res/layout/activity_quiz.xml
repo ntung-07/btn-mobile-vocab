@@ -1,0 +1,77 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <!-- Câu hỏi Quiz -->
+        <TextView
+            android:id="@+id/quizQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- LinearLayout bọc các nút để căn giữa -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Các lựa chọn -->
+            <Button
+                android:id="@+id/option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="300dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
+                android:contentDescription="@string/option_1_description"/>
+
+            <Button
+                android:id="@+id/option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="300dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
+                android:contentDescription="@string/option_2_description"/>
+
+            <Button
+                android:id="@+id/option3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="300dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
+                android:contentDescription="@string/option_3_description"/>
+
+            <Button
+                android:id="@+id/option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="300dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
+                android:contentDescription="@string/option_4_description"/>
+
+        </LinearLayout>
+
+        <!-- Hiển thị điểm số -->
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <!-- TextView hiển thị từ vựng -->
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Sample text"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Nút loa -->
+    <ImageButton
+        android:id="@+id/btn_speak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_volume_black_24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Phát âm"
+        android:padding="8dp" />
+
+    <!-- Nút chia sẻ -->
+    <ImageButton
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_share"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Chia sẻ"
+        android:padding="8dp" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/text_view"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textColor="@android:color/black"-->
+<!--        android:padding="8dp"-->
+<!--        android:background="?android:selectableItemBackground"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+</LinearLayout>
