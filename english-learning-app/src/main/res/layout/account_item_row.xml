@@ -6,14 +6,15 @@
     android:orientation="horizontal"
     android:padding="12dp"
     android:gravity="center_vertical"
-    android:background="?attr/selectableItemBackground">
+    android:background="?attr/colorSurface">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/ic_launcher_foreground"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        app:tint="?attr/colorOnSurface" />
 
     <TextView
         android:id="@+id/title"
@@ -22,12 +23,13 @@
         android:text="Sample Item"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:textColor="?attr/colorOnSurface" />
 
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/arrow_up_float"
-        app:tint="@android:color/darker_gray" />
+        app:tint="?attr/colorOnSurface" />
 </LinearLayout>

@@ -7,5 +7,7 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="colorControlActivated">#FFFFFF</item> <!-- màu underline khi tối -->
+
     </style>
 </resources>

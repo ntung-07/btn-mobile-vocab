@@ -6,5 +6,7 @@
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorControlActivated">#000000</item> <!-- màu underline khi sáng -->
+
     </style>
 </resources>

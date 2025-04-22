@@ -28,7 +28,9 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_account" />
+            android:src="@drawable/ic_account"
+            app:tint="?attr/colorControlNormal" /> <!-- Sử dụng tint từ theme để thay đổi màu tự động -->
+
 
         <TextView
             android:layout_width="0dp"
@@ -87,7 +89,9 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_account" />
+            android:src="@drawable/ic_account"
+            app:tint="?attr/colorControlNormal" /> <!-- Sử dụng tint từ theme để thay đổi màu tự động -->
+
 
         <TextView
             android:layout_width="0dp"
