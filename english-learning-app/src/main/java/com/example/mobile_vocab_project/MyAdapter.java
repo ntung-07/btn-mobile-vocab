@@ -1,4 +1,5 @@
 package com.example.mobile_vocab_project;
+
 import android.content.Context;
 import android.content.Intent;
 import android.speech.tts.TextToSpeech;
@@ -8,14 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.mobile_vocab_project.R;
-import com.example.mobile_vocab_project.VocabEntity;
+
 import com.example.mobile_vocab_project.vocab.VocabDetailActivity;
 
 import java.util.List;
 import java.util.Locale;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
     private List<VocabEntity> data;
@@ -53,6 +55,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             intent.putExtra("position", position);
             context.startActivity(intent);
         });
+
+        holder.btnSpeak.setOnClickListener(v -> {
+            tts.speak(vocab.term, TextToSpeech.QUEUE_FLUSH, null, null);
+        });
+
+        holder.btnShare.setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, displayText);
+            context.startActivity(Intent.createChooser(shareIntent, "Chia sẻ từ vựng"));
+        });
     }
 
     @Override
@@ -73,10 +86,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
+        ImageButton btnSpeak, btnShare;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text_view);
+            btnSpeak = itemView.findViewById(R.id.btn_speak);
+            btnShare = itemView.findViewById(R.id.btn_share);
         }
     }
 }

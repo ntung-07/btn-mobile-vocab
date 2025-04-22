@@ -9,12 +9,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Hướng dẫn sử dụng -->
         <TextView
             android:id="@+id/guideTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:text="Hướng dẫn sử dụng"
+            android:textSize="16sp"
+            android:textColor="@color/onBackground" />
 
     </LinearLayout>
 </ScrollView>

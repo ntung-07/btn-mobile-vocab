@@ -24,7 +24,7 @@ public class VocabDetailActivity extends AppCompatActivity {
         int position = intent.getIntExtra("position", 0);
         VocabEntity vocab = (VocabEntity) intent.getSerializableExtra("vocab");
 
-        // Show individual vocab in a fragment (for large screen or portrait mode fallback)
+        // Optional: show individual vocab in fragment (e.g. for tablets or details section)
         if (vocab != null) {
             VocabFragment vocabFragment = VocabFragment.newInstance(vocab);
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -41,7 +41,7 @@ public class VocabDetailActivity extends AppCompatActivity {
 
             TabLayout tabLayout = findViewById(R.id.tabLayout);
             new TabLayoutMediator(tabLayout, viewPager, (tab, pos) -> {
-                tab.setText(String.valueOf(pos + 1));  // Optional: label tabs by number
+                tab.setText(String.valueOf(pos + 1));  // Label tabs by number
             }).attach();
         } else {
             Toast.makeText(this, "No vocab list passed to activity!", Toast.LENGTH_SHORT).show();

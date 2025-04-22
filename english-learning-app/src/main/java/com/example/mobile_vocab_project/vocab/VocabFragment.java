@@ -1,21 +1,27 @@
 package com.example.mobile_vocab_project.vocab;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
 import com.example.mobile_vocab_project.R;
 import com.example.mobile_vocab_project.VocabEntity;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +30,9 @@ public class VocabFragment extends DialogFragment {
     private VocabEntity vocab;
     private SharedPreferences sharedPreferences;
     private TextView exampleListTextView;
+    private EditText exampleEditText;
 
-    public VocabFragment() {
-        // Required empty constructor for DialogFragment
-    }
+    public VocabFragment() {}
 
     public static VocabFragment newInstance(VocabEntity vocab) {
         VocabFragment fragment = new VocabFragment();
@@ -35,6 +40,21 @@ public class VocabFragment extends DialogFragment {
         args.putSerializable("vocab", vocab);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Optional: make dialog use a light style
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog_Alert);
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setCanceledOnTouchOutside(true); // Optional
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Optional
+        return dialog;
     }
 
     @Nullable
@@ -50,17 +70,17 @@ public class VocabFragment extends DialogFragment {
         TextView termTextView = rootView.findViewById(R.id.termTextView);
         TextView defTextView = rootView.findViewById(R.id.defTextView);
         TextView ipaTextView = rootView.findViewById(R.id.ipaTextView);
-        EditText exampleEditText = rootView.findViewById(R.id.exampleEditText);
+        exampleEditText = rootView.findViewById(R.id.exampleEditText);
         Button addExampleButton = rootView.findViewById(R.id.addExampleButton);
         exampleListTextView = rootView.findViewById(R.id.exampleListTextView);
-
+        Button reloadButton = rootView.findViewById(R.id.reloadButton);
         sharedPreferences = requireContext().getSharedPreferences("examples", Context.MODE_PRIVATE);
 
         if (vocab != null) {
             termTextView.setText(vocab.term);
             defTextView.setText(getString(R.string.definition_prefix) + " " + vocab.def);
             ipaTextView.setText(vocab.ipa);
-            showExamples();  // Load any saved examples
+            showExamples();
         }
 
         addExampleButton.setOnClickListener(v -> {
@@ -69,21 +89,29 @@ public class VocabFragment extends DialogFragment {
                 saveExample(newExample);
                 exampleEditText.setText("");
                 showExamples();
-                Toast.makeText(getContext(), "Example added!", Toast.LENGTH_SHORT).show();
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Example added!", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(getContext(), "Please enter an example sentence", Toast.LENGTH_SHORT).show();
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Please enter an example sentence", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (isAdded()) {
-            showExamples();
+        if (reloadButton != null) {
+            reloadButton.setOnClickListener(v -> {
+                Log.d("VocabFragment", "Reload clicked");
+                showExamples();
+            });
         }
+
+        // Show keyboard on start
+        exampleEditText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(exampleEditText, InputMethodManager.SHOW_IMPLICIT);
+
+        return rootView;
     }
 
     private void saveExample(String sentence) {
@@ -96,16 +124,11 @@ public class VocabFragment extends DialogFragment {
         Set<String> oldSet = sharedPreferences.getStringSet(key, new HashSet<>());
         Set<String> newSet = new HashSet<>(oldSet);
         newSet.add(sentence);
-
         sharedPreferences.edit().putStringSet(key, newSet).apply();
-        Log.d("VocabFragment", "Saved new example: " + sentence);
     }
 
     private void showExamples() {
-        if (!isAdded() || vocab == null) {
-            Log.e("VocabFragment", "Fragment not attached or vocab is null");
-            return;
-        }
+        if (!isAdded() || vocab == null) return;
 
         String key = "examples_" + vocab.def.toLowerCase();
         Set<String> examples = sharedPreferences.getStringSet(key, new HashSet<>());
@@ -124,11 +147,20 @@ public class VocabFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (getDialog() != null && getDialog().getWindow() != null) {
-            getDialog().getWindow().setLayout(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
+        Dialog dialog = getDialog();
+        if (dialog != null && dialog.getWindow() != null) {
+            Window window = dialog.getWindow();
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            // ✅ Clear focus-blocking flags
+            window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+            // Optional: make background less dim if needed
+            WindowManager.LayoutParams layoutParams = window.getAttributes();
+            layoutParams.dimAmount = 0.1f; // default is 0.5
+            window.setAttributes(layoutParams);
+            getDialog().getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         }
     }
 }

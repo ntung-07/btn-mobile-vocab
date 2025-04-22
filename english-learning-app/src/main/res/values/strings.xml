@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Từ vựng</string>
-
+    <string name="action_share" translatable="false">Chia sẻ</string>
+    <string name="share_subject" translatable="false">Danh sách từ vựng của tôi</string>
+    <string name="share_chooser_title" translatable="false">Chia sẻ từ vựng</string>
+    <string name="share_success" translatable="false">Đang chia sẻ từ vựng...</string>
+    <string name="share_failed" translatable="false">Chia sẻ thất bại: %s</string>
+    <string name="share_footer" translatable="false">Được chia sẻ từ Ứng dụng Từ vựng!</string>
     <string name="vocab_cat">Mèo</string>
     <string name="vocab_tiger">Hổ</string>
     <string name="vocab_fish">Cá</string>
@@ -35,11 +40,15 @@
     <string name="saved_examples_label">📌 Câu ví dụ đã lưu:</string>
     <string name="no_examples_yet">Chưa có ví dụ nào</string>
     <string name="definition_prefix">→ từ tiếng Anh:</string>
-
-
-
+    <string name="btn_reload" translatable="false">Tải lại</string>
+    <string name="settings_screen" translatable="false">Settings Screen</string>
+    <string name="study_time_label" translatable="false">Thời gian học từ vựng</string>
+    <string name="study_time_hint" translatable="false">Chưa chọn giờ</string>
+    <string name="set_study_time" translatable="false">Chọn giờ</string>
     <string name="guide_button">Hướng dẫn sử dụng</string>
+    <string name="settings" translatable="false">Settings</string>
     <string name="guide_text">
+
     🎉 Chào mừng bạn đến với ứng dụng học từ vựng tiếng Anh - VocabApp! 🎉\n\n
 
     Ứng dụng này được thiết kế đặc biệt dành cho người học ở mọi trình độ – từ người mới bắt đầu cho đến người học nâng cao. Với giao diện thân thiện, dữ liệu phong phú và chức năng linh hoạt, bạn sẽ có một công cụ tuyệt vời để phát triển vốn từ vựng của mình mỗi ngày.\n\n

@@ -1,4 +1,11 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mobile_vocab_project">
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -6,25 +13,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-<!--        <activity android:name=".MainActivity"-->
-<!--            android:exported="true">-->
-        <!-- Thêm activity GuideActivity -->
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize">
+
+        <!-- Broadcast Receiver for notifications -->
+        <receiver android:name=".NotificationReceiver"
+            android:exported="false" />
+
+        <!-- Activities -->
         <activity android:name=".vocab.GuideActivity" />
+        <activity android:name=".vocab.TopicListActivity" />
+        <activity android:name=".vocab.TopicDetailActivity" />
+        <activity android:name=".QuizActivity"/>
+        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".AccountFragment" />
 
-        <!-- Thêm activity TopicListActivity -->
-        <activity android:name=".vocab.TopicListActivity"/>
-
-        <!-- Thêm activity TopicDetailActivity -->
-        <activity android:name=".vocab.TopicDetailActivity"/>
-
-        <!-- Thêm cấu hình cho VocabDetailActivity -->
         <activity
             android:name=".vocab.VocabDetailActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
 
-        <!-- Thêm cấu hình cho MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,8 +42,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".QuizActivity"/>
     </application>
-
 </manifest>

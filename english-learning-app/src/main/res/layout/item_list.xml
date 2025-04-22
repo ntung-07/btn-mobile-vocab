@@ -11,9 +11,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Sample text"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
+        android:textColor="?android:textColorPrimary"
+        android:padding="8dp"
+        android:background="?android:selectableItemBackground"
         android:clickable="true"
         android:focusable="true" />
 
@@ -36,20 +37,4 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Chia sẻ"
         android:padding="8dp" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/text_view"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="18sp"-->
-<!--        android:textColor="@android:color/black"-->
-<!--        android:padding="8dp"-->
-<!--        android:background="?android:selectableItemBackground"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
 </LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Sign In Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="@drawable/rounded_white_shadow">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_account_circle_black_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+        <!-- Upgrade to Pro -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="UPGRADE TO PRO!"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
+
+        <!-- Settings Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contacts"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Reusable item rows -->
+        <include layout="@layout/account_item_row"
+            android:tag="Facebook page"
+            android:id="@+id/btnFacebook"/>
+
+        <include layout="@layout/account_item_row"
+            android:tag="Rate us"
+            android:id="@+id/btnRate" />
+
+        <include layout="@layout/account_item_row"
+            android:tag="Feedback"
+            android:id="@+id/btnFeedback" />
+
+        <include layout="@layout/account_item_row"
+            android:tag="Share with friends"
+            android:id="@+id/btnShare"/>
+
+    </LinearLayout>
+</ScrollView>
