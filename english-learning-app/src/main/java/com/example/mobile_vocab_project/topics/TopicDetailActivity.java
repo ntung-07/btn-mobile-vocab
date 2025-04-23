@@ -1,12 +1,15 @@
 package com.example.mobile_vocab_project.topics;
+
 import android.os.Bundle;
-import android.view.View;  // Đảm bảo đã import View
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Button;  // Đảm bảo đã import Button
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobile_vocab_project.LocaleHelper;
 import com.example.mobile_vocab_project.MyAdapter;
 import com.example.mobile_vocab_project.R;
 import com.example.mobile_vocab_project.vocab.VocabEntity;
@@ -19,37 +22,36 @@ public class TopicDetailActivity extends AppCompatActivity {
     private Topic topic;
     private RecyclerView recyclerView;
     private TextView topicTitle;
-    private Button btnTopic;  // Khai báo nút "Luyện theo chủ đề"
+    private Button btnTopic;
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase)); // Ensure locale is applied
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_detail);
 
-        // Ánh xạ các view
         recyclerView = findViewById(R.id.recyclerTopicDetail);
         topicTitle = findViewById(R.id.topicTitle);
-        btnTopic = findViewById(R.id.btnTopic);  // Ánh xạ nút "Luyện theo chủ đề"
+        btnTopic = findViewById(R.id.btnTopic);
+        btnTopic.setVisibility(View.GONE); // Hide button by default
 
-        // Ẩn nút "Luyện theo chủ đề" khi vào trang chi tiết
-        btnTopic.setVisibility(View.GONE);  // Sử dụng View.GONE để ẩn nút
-
-        // Nhận chủ đề từ intent
         topic = (Topic) getIntent().getSerializableExtra("topic");
 
-        // Nếu có dữ liệu chủ đề, hiển thị nó
         if (topic != null) {
-            topicTitle.setText("Chủ đề: " + topic.name);  // Hiển thị tên chủ đề trong TextView
+            // Use string resource for topic title format
+            String titleText = getString(R.string.topic_label_format, topic.name);
+            topicTitle.setText(titleText);
 
-            // Thiết lập RecyclerView để hiển thị danh sách từ vựng
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            // Convert Vocab to VocabEntity
             List<VocabEntity> convertedList = new ArrayList<>();
             for (VocabEntity v : topic.vocabList) {
-                convertedList.add(new VocabEntity(v.term, v.def, v.ipa));  // Make sure VocabEntity has this constructor
+                convertedList.add(new VocabEntity(v.term, v.def, v.ipa));
             }
             recyclerView.setAdapter(new MyAdapter(this, convertedList));
-
         }
     }
 }

@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private MyAdapter adapter;
     private Button topicButton, quizButton;

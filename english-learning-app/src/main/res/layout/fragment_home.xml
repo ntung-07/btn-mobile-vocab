@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:padding="@dimen/padding_standard"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Search Bar -->
+        <!-- 🔍 Search Bar -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/button_height"
             android:orientation="horizontal"
             android:background="@drawable/rounded_white_shadow"
-            android:paddingStart="12dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_standard"
+            android:paddingEnd="@dimen/padding_standard">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_search"
-                android:contentDescription="Search icon"
-                app:tint="@color/colorPrimary" />
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
+                    android:src="@android:drawable/ic_menu_search"
+                    android:contentDescription="@string/search_icon"
+                    app:tint="@color/colorPrimary" />
+            </FrameLayout>
 
             <EditText
                 android:id="@+id/etSearch"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:hint="@string/search_hint"
                 android:background="@android:color/transparent"
-                android:paddingStart="8dp"
-                android:inputType="text"
+                android:paddingStart="@dimen/padding_standard"
+                android:paddingEnd="@dimen/padding_standard"
                 android:textColor="@color/onBackground"
                 android:textColorHint="@color/colorSecondary"
+                android:inputType="text"
                 android:autofillHints="username" />
         </LinearLayout>
 
-        <!-- 🔽 Suggestion List (NEW!) -->
+        <!-- Gợi ý -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/suggestionList"
             android:layout_width="match_parent"
@@ -51,11 +60,11 @@
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never" />
 
-        <!-- Chip group -->
+        <!-- 🔘 Chip recent -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="@dimen/margin_standard">
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupRecent"
                 android:layout_width="wrap_content"
@@ -65,50 +74,166 @@
                 app:singleSelection="false">
 
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:text="recent" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:text="colluding" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:text="entirely" />
 
                 <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:text="This" />
-
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
-        <!-- Resource section title -->
+        <!-- 📌 Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:text="@string/section_resources"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_title"
             android:textColor="@color/onBackground" />
 
-        <!-- Resource Grid -->
+        <!-- 🧱 Grid tài nguyên -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gridResources"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:minHeight="200dp"
+            android:layout_marginTop="@dimen/margin_standard"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never" />
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
+
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/background">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp">-->
+
+<!--        &lt;!&ndash; Search Bar &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="48dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="@drawable/rounded_white_shadow"-->
+<!--            android:paddingStart="12dp"-->
+<!--            android:gravity="center_vertical">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@android:drawable/ic_menu_search"-->
+<!--                android:contentDescription="Search icon"-->
+<!--                app:tint="@color/colorPrimary" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etSearch"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:hint="@string/search_hint"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:paddingStart="8dp"-->
+<!--                android:inputType="text"-->
+<!--                android:textColor="@color/onBackground"-->
+<!--                android:textColorHint="@color/colorSecondary"-->
+<!--                android:autofillHints="username" />-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; 🔽 Suggestion List (NEW!) &ndash;&gt;-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/suggestionList"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:nestedScrollingEnabled="false"-->
+<!--            android:overScrollMode="never" />-->
+
+<!--        &lt;!&ndash; Chip group &ndash;&gt;-->
+<!--        <HorizontalScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp">-->
+<!--            <com.google.android.material.chip.ChipGroup-->
+<!--                android:id="@+id/chipGroupRecent"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:singleLine="true"-->
+<!--                app:singleSelection="false">-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--                    android:text="recent" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--                    android:text="colluding" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--                    android:text="entirely" />-->
+
+<!--                <com.google.android.material.chip.Chip-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/Widget.MaterialComponents.Chip.Choice"-->
+<!--                    android:text="This" />-->
+
+<!--            </com.google.android.material.chip.ChipGroup>-->
+<!--        </HorizontalScrollView>-->
+
+<!--        &lt;!&ndash; Resource section title &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:text="@string/section_resources"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/onBackground" />-->
+
+<!--        &lt;!&ndash; Resource Grid &ndash;&gt;-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/gridResources"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:nestedScrollingEnabled="false"-->
+<!--            android:overScrollMode="never" />-->
+
+<!--    </LinearLayout>-->
+<!--</ScrollView>-->
+
+

@@ -52,6 +52,8 @@
     <string name="start_quiz">BẮT ĐẦU QUIZ</string>
     <string name="section_resources">Tài nguyên</string>
     <string name="search_hint">Tìm kiếm</string>
+        <string name="topic_label_format">Chủ đề: %1$s</string>
+        <string name="btn_practice_by_topic">Luyện theo chủ đề</string>
 
 
     <!-- Vietnamese -->
@@ -63,7 +65,7 @@
     <string name="resource_about">Giới thiệu</string>
 
         <!-- Settings -->
-    <string name="settings_screen">Màn hình cài đặt</string>
+    <string name="settings_screen">Cài đặt</string>
     <string name="study_time_label">Thời gian học từ vựng</string>
     <string name="study_time_hint">Chưa chọn giờ</string>
     <string name="set_study_time">Chọn giờ</string>
@@ -129,5 +131,26 @@
         🙏 Cảm ơn bạn đã sử dụng VocabApp. Chúng tôi luôn mong muốn mang lại trải nghiệm học tập tốt nhất. Chúc bạn học vui và đạt kết quả cao trong hành trình chinh phục tiếng Anh!\n\n
         — Đội ngũ phát triển VocabApp ❤️
     </string>
+
+        <string name="reminder">Nhắc học</string>
+        <string name="set_time">Chọn giờ</string>
+        <string name="night_mode">Chế độ ban đêm</string>
+        <string name="alarm_permission_required">Vui lòng cấp quyền đặt báo thức chính xác</string>
+        <string name="alarm_permission_granted">Quyền báo thức chính xác đã được cấp</string>
+        <string name="alarm_permission_denied">Cần quyền báo thức chính xác để gửi thông báo đúng giờ</string>
+        <string name="notification_permission_granted">Quyền thông báo đã được cấp</string>
+        <string name="notification_permission_required">Cần quyền thông báo để gửi nhắc nhở</string>
+        <string name="notification_scheduled">Thông báo được đặt cho %1$s</string>
+        <string name="choose_languages">Chọn ngôn ngữ</string>
+
+        <string name="sign_in">Đăng nhập</string>
+        <string name="upgrade_to_pro">Nâng cấp lên bản Pro!</string>
+        <string name="contacts_header">Liên hệ</string>
+        <string name="facebook_page">Trang Facebook</string>
+        <string name="rate_us">Đánh giá ứng dụng</string>
+        <string name="feedback">Phản hồi</string>
+        <string name="share_with_friends">Chia sẻ với bạn bè</string>
+        <string name="search_icon">Search icon</string>
+
     </resources>
 

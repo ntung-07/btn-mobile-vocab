@@ -127,5 +127,28 @@ Cette application est conçue pour les apprenants de tous niveaux – débutants
 🙏 Merci d’utiliser VocabApp ! Nous espérons que vous aurez une expérience d’apprentissage agréable et efficace. Bon courage dans votre apprentissage de l’anglais !\n\n
 — L’équipe VocabApp ❤️
     </string>
+
+    <string name="reminder">Rappel</string>
+    <string name="set_time">Définir l\heure</string>
+    <string name="night_mode">Mode nuit</string>
+    <string name="alarm_permission_required">Veuillez autoriser les alarmes exactes</string>
+    <string name="alarm_permission_granted">Permission d\alarme exacte accordée</string>
+    <string name="alarm_permission_denied">L\autorisation d\alarme exacte est requise pour les notifications précises</string>
+    <string name="notification_permission_granted">Autorisation de notification accordée</string>
+    <string name="notification_permission_required">L\autorisation de notification est requise pour les rappels</string>
+    <string name="notification_scheduled">Notification programmée pour %1$s</string>
+    <string name="choose_languages">Choisir la langue</string>
+
+    <string name="sign_in">Se connecter</string>
+    <string name="upgrade_to_pro">Passer à la version Pro !</string>
+    <string name="contacts_header">Contacts</string>
+    <string name="facebook_page">Page Facebook</string>
+    <string name="rate_us">Noter l\application</string>
+    <string name="feedback">Retour</string>
+    <string name="share_with_friends">Partager avec des amis</string>
+    <string name="search_icon">Search icon</string>
+    <string name="topic_label_format">Sujet : %1$s</string>
+    <string name="btn_practice_by_topic">S\entraîner par thème</string>
+
 </resources>
 

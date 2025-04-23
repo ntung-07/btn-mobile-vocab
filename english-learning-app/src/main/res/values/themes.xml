@@ -1,10 +1,17 @@
 <resources>
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Các thuộc tính style cho chế độ sáng -->
+        <!-- Core brand colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
+
+        <!-- Accent -->
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+
+        <!-- Optional customization -->
+        <item name="colorControlActivated">#000000</item> <!-- Underline or switch thumb when activated -->
+        <item name="android:statusBarColor">@android:color/transparent</item> <!-- Transparent status bar for better immersion -->
+        <item name="android:navigationBarColor">@android:color/black</item> <!-- Optional for dark theme contrast -->
     </style>
 </resources>

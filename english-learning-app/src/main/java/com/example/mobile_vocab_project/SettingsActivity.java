@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     private static final int NOTIFICATION_PERMISSION_CODE = 100;
     private static final int EXACT_ALARM_PERMISSION_CODE = 101;
 
-    private TextView tvStudyTime;
-    private TextView tvCurrentLanguage;
+    private TextView tvStudyTime, tvCurrentLanguage;
     private LinearLayout layoutSetTime, layoutLanguage;
     private SwitchCompat switchReminder, switchNightMode;
     private SharedPreferences prefs;
@@ -61,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         switchReminder = findViewById(R.id.switchReminder);
         switchNightMode = findViewById(R.id.switchNightMode);
         layoutLanguage = findViewById(R.id.layoutLanguage);
-        tvCurrentLanguage = findViewById(R.id.tvCurrentLanguage); // Make sure to define this in XML
+        tvCurrentLanguage = findViewById(R.id.tvCurrentLanguage);
 
         boolean isReminderOn = prefs.getBoolean(KEY_REMINDER_ENABLED, false);
         switchReminder.setChecked(isReminderOn);
@@ -89,7 +87,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         layoutLanguage.setOnClickListener(v -> showLanguageDialog());
 
-        // Display current language
         Locale current = getResources().getConfiguration().locale;
         tvCurrentLanguage.setText(current.getDisplayLanguage(current));
     }
@@ -107,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             if (!alarmManager.canScheduleExactAlarms()) {
-                Toast.makeText(this, "Vui lòng cấp quyền đặt báo thức chính xác", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.alarm_permission_required), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 startActivityForResult(intent, EXACT_ALARM_PERMISSION_CODE);
             }
@@ -156,8 +153,8 @@ public class SettingsActivity extends AppCompatActivity {
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), pendingIntent);
 
-        Toast.makeText(this, "Thông báo được đặt cho " +
-                String.format(Locale.getDefault(), "%02d:%02d", hour, minute), Toast.LENGTH_SHORT).show();
+        String time = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
+        Toast.makeText(this, getString(R.string.notification_scheduled, time), Toast.LENGTH_SHORT).show();
     }
 
     private void showLanguageDialog() {
@@ -165,7 +162,7 @@ public class SettingsActivity extends AppCompatActivity {
         String[] codes = {"en", "vi", "fr"};
 
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle(R.string.choose_language)
+                .setTitle(R.string.choose_languages)
                 .setItems(languages, (dialog, which) -> {
                     saveAndApplyLanguage(codes[which]);
                 }).show();
@@ -191,8 +188,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == NOTIFICATION_PERMISSION_CODE) {
             String msg = (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    ? "Quyền thông báo đã được cấp"
-                    : "Cần quyền thông báo để gửi nhắc nhở";
+                    ? getString(R.string.notification_permission_granted)
+                    : getString(R.string.notification_permission_required);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         }
     }
@@ -202,11 +199,10 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EXACT_ALARM_PERMISSION_CODE) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleExactAlarms()) {
-                Toast.makeText(this, "Quyền báo thức chính xác đã được cấp", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Cần quyền báo thức chính xác để gửi thông báo đúng giờ", Toast.LENGTH_LONG).show();
-            }
+            String message = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleExactAlarms())
+                    ? getString(R.string.alarm_permission_granted)
+                    : getString(R.string.alarm_permission_denied);
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         }
     }
 }

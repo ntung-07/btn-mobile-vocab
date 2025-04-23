@@ -1,4 +1,5 @@
 package com.example.mobile_vocab_project.topics;
+import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -220,4 +221,10 @@ public class TopicListActivity extends AppCompatActivity {
         TopicAdapter adapter = new TopicAdapter(this, topicList);
         recyclerView.setAdapter(adapter);
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(com.example.mobile_vocab_project.LocaleHelper.setLocale(newBase));
+    }
+
 }
