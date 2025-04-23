@@ -1,5 +1,6 @@
 package com.example.mobile_vocab_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,9 +23,13 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.mobile_vocab_project.vocab.GuideActivity;
-import com.example.mobile_vocab_project.vocab.MyAdapter;
-import com.example.mobile_vocab_project.vocab.TopicListActivity;
+import com.example.mobile_vocab_project.home.HomeFragment;
+import com.example.mobile_vocab_project.sync.SyncUtils;
+import com.example.mobile_vocab_project.sync.SyncWorker;
+import com.example.mobile_vocab_project.topics.TopicListActivity;
+import com.example.mobile_vocab_project.vocab.VocabDao;
+import com.example.mobile_vocab_project.vocab.VocabDatabase;
+import com.example.mobile_vocab_project.vocab.VocabEntity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -95,6 +100,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
+                        toggleMainLayoutVisibility(false);
+                        Fragment homeFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                        if (!(homeFragment instanceof HomeFragment)) {
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.fragment_container, new HomeFragment())
+                                    .commit();
+                        }
                         return true;
                     case R.id.nav_vocab:
                         Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -216,5 +229,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show());
             }
         }).start();
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
     }
 }

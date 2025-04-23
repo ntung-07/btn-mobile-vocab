@@ -10,9 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -26,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -33,23 +32,25 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String KEY_STUDY_HOUR = "studyHour";
     private static final String KEY_STUDY_MINUTE = "studyMinute";
     private static final String KEY_REMINDER_ENABLED = "reminderEnabled";
-    private static final String KEY_NIGHT_MODE = "nightMode";
     private static final int NOTIFICATION_PERMISSION_CODE = 100;
     private static final int EXACT_ALARM_PERMISSION_CODE = 101;
-    private static final String TAG = "SettingsActivity";
 
-    private SharedPreferences prefs;
     private TextView tvStudyTime;
-    private LinearLayout layoutSetTime;
-    private SwitchCompat switchReminder;
-    private SwitchCompat switchNightMode;
+    private TextView tvCurrentLanguage;
+    private LinearLayout layoutSetTime, layoutLanguage;
+    private SwitchCompat switchReminder, switchNightMode;
+    private SharedPreferences prefs;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        // Setup toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.settings_screen);
@@ -59,29 +60,50 @@ public class SettingsActivity extends AppCompatActivity {
         layoutSetTime = findViewById(R.id.layoutSetTime);
         switchReminder = findViewById(R.id.switchReminder);
         switchNightMode = findViewById(R.id.switchNightMode);
+        layoutLanguage = findViewById(R.id.layoutLanguage);
+        tvCurrentLanguage = findViewById(R.id.tvCurrentLanguage); // Make sure to define this in XML
 
-        // Load reminder toggle
         boolean isReminderOn = prefs.getBoolean(KEY_REMINDER_ENABLED, false);
         switchReminder.setChecked(isReminderOn);
         layoutSetTime.setVisibility(isReminderOn ? View.VISIBLE : View.GONE);
-
-        // Load and show study time
         loadStudyTime();
 
-        // Load night mode toggle
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switchNightMode.setChecked(currentNightMode == Configuration.UI_MODE_NIGHT_YES);
 
-        // Request notification permission (T+)
+        requestPermissionsIfNeeded();
+
+        switchReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            prefs.edit().putBoolean(KEY_REMINDER_ENABLED, isChecked).apply();
+            layoutSetTime.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+        });
+
+        layoutSetTime.setOnClickListener(v -> {
+            if (switchReminder.isChecked()) showTimePickerDialog();
+        });
+
+        switchNightMode.setOnCheckedChangeListener((buttonView, isChecked) ->
+                AppCompatDelegate.setDefaultNightMode(
+                        isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+                ));
+
+        layoutLanguage.setOnClickListener(v -> showLanguageDialog());
+
+        // Display current language
+        Locale current = getResources().getConfiguration().locale;
+        tvCurrentLanguage.setText(current.getDisplayLanguage(current));
+    }
+
+    private void requestPermissionsIfNeeded() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{android.Manifest.permission.POST_NOTIFICATIONS},
                         NOTIFICATION_PERMISSION_CODE);
             }
         }
 
-        // Request exact alarm permission (S+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             if (!alarmManager.canScheduleExactAlarms()) {
@@ -90,38 +112,16 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivityForResult(intent, EXACT_ALARM_PERMISSION_CODE);
             }
         }
-
-        // Toggle Reminder
-        switchReminder.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            prefs.edit().putBoolean(KEY_REMINDER_ENABLED, isChecked).apply();
-            layoutSetTime.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-        });
-
-        // Tap on Set Time
-        layoutSetTime.setOnClickListener(v -> {
-            if (switchReminder.isChecked()) {
-                showTimePickerDialog();
-            }
-        });
-
-        // Toggle Theme
-        switchNightMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            setAppTheme(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        });
     }
 
     private void showTimePickerDialog() {
-        Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = currentTime.get(Calendar.MINUTE);
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (view, hourOfDay, minuteOfHour) -> {
-                    saveStudyTime(hourOfDay, minuteOfHour);
-                    updateStudyTimeDisplay(hourOfDay, minuteOfHour);
-                    scheduleNotification(hourOfDay, minuteOfHour);
-                }, hour, minute, true);
-        timePickerDialog.show();
+        Calendar now = Calendar.getInstance();
+        TimePickerDialog dialog = new TimePickerDialog(this, (view, hour, minute) -> {
+            saveStudyTime(hour, minute);
+            updateStudyTimeDisplay(hour, minute);
+            scheduleNotification(hour, minute);
+        }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), true);
+        dialog.show();
     }
 
     private void saveStudyTime(int hour, int minute) {
@@ -131,14 +131,11 @@ public class SettingsActivity extends AppCompatActivity {
     private void loadStudyTime() {
         int hour = prefs.getInt(KEY_STUDY_HOUR, -1);
         int minute = prefs.getInt(KEY_STUDY_MINUTE, -1);
-        if (hour != -1 && minute != -1) {
-            updateStudyTimeDisplay(hour, minute);
-        }
+        if (hour != -1 && minute != -1) updateStudyTimeDisplay(hour, minute);
     }
 
     private void updateStudyTimeDisplay(int hour, int minute) {
-        String time = String.format("%02d:%02d", hour, minute);
-        tvStudyTime.setText(time);
+        tvStudyTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
     }
 
     private void scheduleNotification(int hour, int minute) {
@@ -151,7 +148,6 @@ public class SettingsActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -160,19 +156,45 @@ public class SettingsActivity extends AppCompatActivity {
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), pendingIntent);
 
-        Calendar nextDayCalendar = (Calendar) calendar.clone();
-        nextDayCalendar.add(Calendar.DAY_OF_YEAR, 1);
-        PendingIntent nextDayPendingIntent = PendingIntent.getBroadcast(this, 1, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                nextDayCalendar.getTimeInMillis(), nextDayPendingIntent);
-
-        Toast.makeText(this, "Thông báo được đặt cho " + String.format("%02d:%02d", hour, minute),
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Thông báo được đặt cho " +
+                String.format(Locale.getDefault(), "%02d:%02d", hour, minute), Toast.LENGTH_SHORT).show();
     }
 
-    private void setAppTheme(int mode) {
-        AppCompatDelegate.setDefaultNightMode(mode);
+    private void showLanguageDialog() {
+        String[] languages = {"English", "Tiếng Việt", "Français"};
+        String[] codes = {"en", "vi", "fr"};
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.choose_language)
+                .setItems(languages, (dialog, which) -> {
+                    saveAndApplyLanguage(codes[which]);
+                }).show();
+    }
+
+    private void saveAndApplyLanguage(String langCode) {
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        prefs.edit().putString("lang", langCode).apply();
+
+        Locale locale = new Locale(langCode);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
+            String msg = (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    ? "Quyền thông báo đã được cấp"
+                    : "Cần quyền thông báo để gửi nhắc nhở";
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -184,18 +206,6 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(this, "Quyền báo thức chính xác đã được cấp", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Cần quyền báo thức chính xác để gửi thông báo đúng giờ", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == NOTIFICATION_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Quyền thông báo đã được cấp", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Cần quyền thông báo để gửi nhắc nhở", Toast.LENGTH_SHORT).show();
             }
         }
     }

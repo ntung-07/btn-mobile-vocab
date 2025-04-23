@@ -1,4 +1,4 @@
-package com.example.mobile_vocab_project;
+package com.example.mobile_vocab_project.vocab;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.io.Serializable;

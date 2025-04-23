@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Vocabulaire</string>
 
+    <!-- Share -->
+    <string name="action_share">Partager</string>
+    <string name="share_subject">Ma liste de vocabulaire</string>
+    <string name="share_chooser_title">Partager le vocabulaire</string>
+    <string name="share_success">Partage en cours...</string>
+    <string name="share_failed">Échec du partage : %s</string>
+    <string name="share_footer">Partagé depuis VocabApp !</string>
+
+    <!-- Vocab -->
     <string name="vocab_cat">Chat</string>
     <string name="vocab_tiger">Tigre</string>
     <string name="vocab_fish">Poisson</string>
@@ -21,6 +30,8 @@
     <string name="vocab_frog">Grenouille</string>
     <string name="vocab_ant">Fourmi</string>
     <string name="vocab_bee">Abeille</string>
+
+    <!-- Topics -->
     <string name="topic_animals">Animaux</string>
     <string name="topic_food">Nourriture</string>
     <string name="topic_school">École</string>
@@ -29,67 +40,92 @@
     <string name="topic_weather">Météo</string>
     <string name="topic_transportation">Transport</string>
     <string name="topic_household">Objets de la maison</string>
+
+    <!-- UI -->
     <string name="btn_topic_practice">Pratiquer par thème</string>
-    <string name="hint_example">Entrez une phrase </string>
+    <string name="hint_example">Entrez une phrase...</string>
     <string name="btn_add_example">Ajouter</string>
-    <string name="saved_examples_label">📌 Saved example sentences:</string>
-    <string name="no_examples_yet">Aucun exemple pour linstant</string>
+    <string name="saved_examples_label">📌 Phrases enregistrées :</string>
+    <string name="no_examples_yet">Aucun exemple pour l’instant</string>
     <string name="definition_prefix">→ mot en anglais :</string>
+    <string name="btn_reload">Recharger</string>
+    <string name="start_quiz">Commencer le Quiz</string>
+    <string name="search_hint">Rechercher</string>
+    <string name="section_resources">Ressources</string>
 
+    <string name="resource_vocab">Vocabulaire</string>
+    <string name="resource_quiz">Quiz</string>
+    <string name="resource_grammar">Grammaire</string>
+    <string name="resource_dict">Dictionnaire</string>
+    <string name="resource_tips">Astuces</string>
+    <string name="resource_about">À propos</string>
 
-    <string name="guide_button">Guide d\'utilisation</string>
+    <!-- Settings -->
+    <string name="settings_screen">Écran des paramètres</string>
+    <string name="study_time_label">Heure d\étude du vocabulaire</string>
+    <string name="study_time_hint">Non sélectionnée</string>
+    <string name="set_study_time">Choisir l’heure</string>
+    <string name="guide_button">Guide d’utilisation</string>
+    <string name="settings">Paramètres</string>
+    <string name="choose_language">Choisir la langue</string>
+
+    <!-- Quiz -->
+    <string name="option_1_description">Option 1</string>
+    <string name="option_2_description">Option 2</string>
+    <string name="option_3_description">Option 3</string>
+    <string name="option_4_description">Option 4</string>
+
+    <!-- Guide Text -->
     <string name="guide_text">
-    🎉 Bienvenue dans VocabApp – votre compagnon pour apprendre le vocabulaire anglais ! 🎉\n\n
+            🎉 Bienvenue dans VocabApp – votre compagnon pour apprendre le vocabulaire anglais ! 🎉\n\n
 
-    Cette application est conçue pour les apprenants de tous niveaux – débutants comme avancés. Avec une interface conviviale, une base de données riche et des fonctionnalités pratiques, vous disposerez d’un outil puissant pour enrichir votre vocabulaire chaque jour.\n\n
+Cette application est conçue pour les apprenants de tous niveaux – débutants comme avancés. Avec une interface conviviale, une base de données riche et des fonctionnalités pratiques, vous disposerez d’un outil puissant pour enrichir votre vocabulaire chaque jour.\n\n
 
-    📌 1. Interface principale :\n
-    - L’écran d’accueil affiche une liste de mots à faire défiler.\n
-    - Chaque ligne montre le mot en anglais, sa signification en vietnamien et sa prononciation IPA.\n
-    - Interface claire et optimisée pour tous les formats d’écran.\n\n
+📌 1. Interface principale :\n
+- L’écran d’accueil affiche une liste de mots à faire défiler.\n
+- Chaque ligne montre le mot en anglais, sa signification en vietnamien et sa prononciation IPA.\n
+- Interface claire et optimisée pour tous les formats d’écran.\n\n
 
-    📌 2. Utilisation de la liste :\n
-    - Faites défiler la liste vers le haut ou le bas.\n
-    - Appuyez sur un mot pour voir les détails.\n
-    - Les mots sont regroupés par thème pour faciliter la mémorisation.\n\n
+📌 2. Utilisation de la liste :\n
+- Faites défiler la liste vers le haut ou le bas.\n
+- Appuyez sur un mot pour voir les détails.\n
+- Les mots sont regroupés par thème pour faciliter la mémorisation.\n\n
 
-    📌 3. Vue détaillée :\n
-    - En appuyant sur un mot, vous accédez à ses détails : prononciation, sens, etc.\n
-    - Glissez vers la gauche ou la droite pour passer d’un mot à l’autre.\n
-    - Le format "slide" facilite un apprentissage fluide comme des flashcards.\n\n
+📌 3. Vue détaillée :\n
+- En appuyant sur un mot, vous accédez à ses détails : prononciation, sens, etc.\n
+- Glissez vers la gauche ou la droite pour passer d’un mot à l’autre.\n
+- Le format "slide" facilite un apprentissage fluide comme des flashcards.\n\n
 
-    📌 4. Support multilingue :\n
-    - VocabApp est disponible en vietnamien, anglais et français.\n
-    - L’application s’adapte automatiquement à la langue du système.\n
-    - Tous les textes, boutons et données sont traduits.\n\n
+📌 4. Support multilingue :\n
+- VocabApp est disponible en vietnamien, anglais et français.\n
+- L’application s’adapte automatiquement à la langue du système.\n
+- Tous les textes, boutons et données sont traduits.\n\n
 
-    📌 5. Design réactif :\n
-    - Interface adaptée aux smartphones, tablettes et écrans variés.\n
-    - Fonctionne en orientation portrait et paysage.\n\n
+📌 5. Design réactif :\n
+- Interface adaptée aux smartphones, tablettes et écrans variés.\n
+- Fonctionne en orientation portrait et paysage.\n\n
 
-    📌 6. Points forts :\n
-    ✅ Utilisation simple, sans compte requis\n
-    ✅ Fonctionne hors ligne\n
-    ✅ Apprentissage partout et à tout moment\n
-    ✅ Idéal pour les étudiants, professionnels et passionnés de langues\n
-    ✅ Expérience sans publicité\n\n
+📌 6. Points forts :\n
+✅ Utilisation simple, sans compte requis\n
+✅ Fonctionne hors ligne\n
+✅ Apprentissage partout et à tout moment\n
+✅ Idéal pour les étudiants, professionnels et passionnés de langues\n
+✅ Expérience sans publicité\n\n
 
-    📌 7. Guide rapide :\n
-    - Ouvrez l’application et choisissez un mot\n
-    - Appuyez pour voir les détails\n
-    - Glissez pour continuer à apprendre\n
-    - Changez la langue dans les paramètres du téléphone\n
-    - Appuyez sur "Guide d’utilisation" pour revoir ce guide\n\n
+📌 7. Guide rapide :\n
+- Ouvrez l’application et choisissez un mot\n
+- Appuyez pour voir les détails\n
+- Glissez pour continuer à apprendre\n
+- Changez la langue dans les paramètres du téléphone\n
+- Appuyez sur "Guide d’utilisation" pour revoir ce guide\n\n
 
-    💡 Astuces pour apprendre efficacement :\n
-    - Apprenez quelques mots chaque jour, régulièrement\n
-    - Révisez les anciens mots\n
-    - Associez avec des exercices d’écoute et de prononciation\n\n
+💡 Astuces pour apprendre efficacement :\n
+- Apprenez quelques mots chaque jour, régulièrement\n
+- Révisez les anciens mots\n
+- Associez avec des exercices d’écoute et de prononciation\n\n
 
-    🙏 Merci d’utiliser VocabApp ! Nous espérons que vous aurez une expérience d’apprentissage agréable et efficace. Bon courage dans votre apprentissage de l’anglais !\n\n
-    — L’équipe VocabApp ❤️
-</string>
-
-
-
+🙏 Merci d’utiliser VocabApp ! Nous espérons que vous aurez une expérience d’apprentissage agréable et efficace. Bon courage dans votre apprentissage de l’anglais !\n\n
+— L’équipe VocabApp ❤️
+    </string>
 </resources>
+

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name=".VocabApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,12 +22,13 @@
             android:exported="false" />
 
         <!-- Activities -->
-        <activity android:name=".vocab.GuideActivity" />
-        <activity android:name=".vocab.TopicListActivity" />
-        <activity android:name=".vocab.TopicDetailActivity" />
+        <activity android:name=".GuideActivity" />
+        <activity android:name=".topics.TopicListActivity" />
+        <activity android:name=".topics.TopicDetailActivity" />
         <activity android:name=".QuizActivity"/>
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".AccountFragment" />
+        <activity android:name=".home.WordDetailActivity" />
 
         <activity
             android:name=".vocab.VocabDetailActivity"

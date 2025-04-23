@@ -11,15 +11,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mobile_vocab_project.R;
 import com.example.mobile_vocab_project.vocab.VocabDetailActivity;
+import com.example.mobile_vocab_project.vocab.VocabEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private Context context;
+    private final Context context;
     private List<VocabEntity> data;
     private TextToSpeech tts;
 
@@ -31,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             if (status == TextToSpeech.SUCCESS) {
                 tts.setLanguage(Locale.US);
             } else {
-                Toast.makeText(context, "TextToSpeech init failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Không thể khởi tạo TextToSpeech", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -49,22 +53,46 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         String displayText = vocab.term + " - " + vocab.def + " " + vocab.ipa;
         holder.textView.setText(displayText);
 
-        holder.textView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, VocabDetailActivity.class);
-            intent.putExtra("vocabList", new java.util.ArrayList<>(data));
-            intent.putExtra("position", position);
-            context.startActivity(intent);
-        });
+        // Phát âm
+        holder.btnSpeak.setOnClickListener(v -> tts.speak(vocab.term, TextToSpeech.QUEUE_FLUSH, null, null));
 
-        holder.btnSpeak.setOnClickListener(v -> {
-            tts.speak(vocab.term, TextToSpeech.QUEUE_FLUSH, null, null);
-        });
-
+        // Chia sẻ
         holder.btnShare.setOnClickListener(v -> {
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, displayText);
-            context.startActivity(Intent.createChooser(shareIntent, "Chia sẻ từ vựng"));
+            String[] options = {
+                    "Chia sẻ qua ứng dụng khác",
+                    "Chia sẻ qua Facebook",
+                    "Chia sẻ qua Instagram"
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Chọn cách chia sẻ");
+            builder.setItems(options, (dialog, which) -> {
+                switch (which) {
+                    case 0:
+                        shareText(displayText, null);
+                        break;
+                    case 1:
+                        shareText(displayText, "com.facebook.katana");
+                        break;
+                    case 2:
+                        shareText(displayText, "com.instagram.android");
+                        break;
+                }
+
+            });
+            builder.show();
+        });
+
+        // Mở chi tiết
+        holder.textView.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                Intent intent = new Intent(context, VocabDetailActivity.class);
+                intent.putExtra("vocab", vocab);
+                intent.putExtra("vocabList", new ArrayList<>(data));
+                intent.putExtra("position", currentPosition);
+                context.startActivity(intent);
+            }
         });
     }
 
@@ -75,6 +103,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public void setData(List<VocabEntity> newData) {
         this.data = newData;
+        notifyDataSetChanged();
     }
 
     public void shutdownTTS() {
@@ -84,15 +113,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
+    private void shareText(String content, String packageName) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+        sendIntent.setType("text/plain");
+
+        if (packageName != null) {
+            sendIntent.setPackage(packageName);
+            if (sendIntent.resolveActivity(context.getPackageManager()) == null) {
+                String appName = packageName.contains("facebook") ? "Facebook" : "Instagram";
+                Toast.makeText(context, appName + " chưa được cài đặt", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        context.startActivity(Intent.createChooser(sendIntent, "Chia sẻ từ vựng"));
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
-        ImageButton btnSpeak, btnShare;
+        ImageButton btnShare, btnSpeak;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text_view);
-            btnSpeak = itemView.findViewById(R.id.btn_speak);
             btnShare = itemView.findViewById(R.id.btn_share);
+            btnSpeak = itemView.findViewById(R.id.btn_speak);
         }
     }
 }

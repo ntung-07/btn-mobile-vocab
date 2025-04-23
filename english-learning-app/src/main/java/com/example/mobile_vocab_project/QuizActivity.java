@@ -4,6 +4,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mobile_vocab_project.vocab.VocabEntity;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -30,10 +33,17 @@ public class QuizActivity extends AppCompatActivity {
         option3 = findViewById(R.id.option3);
         option4 = findViewById(R.id.option4);
 
-        // Lấy danh sách từ vựng từ intent
         vocabList = (ArrayList<VocabEntity>) getIntent().getSerializableExtra("vocabList");
+
+        if (vocabList == null || vocabList.isEmpty()) {
+            Toast.makeText(this, "Không có dữ liệu để bắt đầu quiz!", Toast.LENGTH_LONG).show();
+            finish(); // Thoát khỏi activity nếu không có dữ liệu
+            return;
+        }
+
         quizQuestions = new ArrayList<>(vocabList);
-        Collections.shuffle(quizQuestions); // Xáo trộn câu hỏi
+        Collections.shuffle(quizQuestions);
+
 
         scoreText.setText("Điểm: " + score);
         loadNextQuestion();

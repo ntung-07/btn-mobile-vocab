@@ -20,7 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mobile_vocab_project.R;
-import com.example.mobile_vocab_project.VocabEntity;
 
 import java.util.HashSet;
 import java.util.Set;

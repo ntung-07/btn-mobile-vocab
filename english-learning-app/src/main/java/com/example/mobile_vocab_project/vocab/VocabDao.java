@@ -1,4 +1,4 @@
-package com.example.mobile_vocab_project;
+package com.example.mobile_vocab_project.vocab;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -14,4 +14,9 @@ public interface VocabDao {
 
     @Query("SELECT * FROM vocab_table")
     List<VocabEntity> getAll();
+
+    // ✅ NEW: For search suggestions
+    @Query("SELECT * FROM vocab_table WHERE term LIKE :query || '%' ORDER BY term LIMIT 10")
+    List<VocabEntity> searchSuggestions(String query);
 }
+

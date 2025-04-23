@@ -1,8 +1,12 @@
-package com.example.mobile_vocab_project;
+package com.example.mobile_vocab_project.sync;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.content.Context;
 import android.util.Log;
+
+import com.example.mobile_vocab_project.vocab.VocabDao;
+import com.example.mobile_vocab_project.vocab.VocabDatabase;
+import com.example.mobile_vocab_project.vocab.VocabEntity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;

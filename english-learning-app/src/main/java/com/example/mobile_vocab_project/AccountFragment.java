@@ -1,5 +1,6 @@
 package com.example.mobile_vocab_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,26 @@ public class AccountFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupItem(view.findViewById(R.id.btnFacebook), "Facebook page", R.drawable.ic_facebook);
-        setupItem(view.findViewById(R.id.btnRate), "Rate us", R.drawable.ic_thumb_up);
-        setupItem(view.findViewById(R.id.btnFeedback), "Feedback", R.drawable.ic_feedback);
-        setupItem(view.findViewById(R.id.btnShare), "Share with friends", R.drawable.ic_share);
+        View facebookBtn = view.findViewById(R.id.btnFacebook);
+        View rateBtn = view.findViewById(R.id.btnRate);
+        View feedbackBtn = view.findViewById(R.id.btnFeedback);
+        View shareBtn = view.findViewById(R.id.btnShare);
+
+        setupItem(facebookBtn, "Facebook page", R.drawable.facebook_img);
+        setupItem(rateBtn, "Rate us", R.drawable.ratings_icon);
+        setupItem(feedbackBtn, "Feedback", R.drawable.feedback_icon);
+        setupItem(shareBtn, "Share with friends", R.drawable.share_icon);
+
+        // ✅ Add click event for Facebook row
+        if (facebookBtn != null) {
+            facebookBtn.setOnClickListener(v -> {
+                String url = "https://www.facebook.com/ktqdNEU";
+                Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+                startActivity(intent);
+            });
+        }
     }
+
 
     private void setupItem(View item, String label, int iconResId) {
         if (item != null) {

@@ -3,8 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.example.mobile_vocab_project.VocabEntity;
-import com.example.mobile_vocab_project.vocab.VocabFragment;
+
 import java.util.List;
 
 public class VocabPagerAdapter extends FragmentStateAdapter {
